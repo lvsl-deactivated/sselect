@@ -1,5 +1,5 @@
 /*
- * JQuery plugin for adding suggest to select.
+ * jQuery plugin for adding suggest to select.
  *
  * by  chin@shaftsoft.ru
  *
@@ -17,7 +17,7 @@
       };
  
       var wrap_div = $('<div style="position: relative; display: inline; padding:0; margin: 0"></div>');
-      var img = $('<img src="/media/images/icon_wand.gif" style="cursor: pointer;" title="Toggle suggest"/>');
+      var turn_on = $('<b>✍</b>');
       var input_string = $('<input type="string" style="width:250px" name="task_type" class="hidden" autocomplete="off"/>');
 
       var ul_c = $('<ul><i></i></ul>');
@@ -31,7 +31,7 @@
       choices_div.append(close_btn);
       choices_div.append(ul_c);
       field.wrap(wrap_div);
-      field.before(img);
+      field.before(turn_on);
       field.after(input_string);
       field.after(choices_div);
       // end
@@ -51,7 +51,7 @@
       };
 
       var ul = ul_c;
-      var suggest_toggle = img;
+      var suggest_toggle = turn_on;
       var current_li = null;
       var choices = [];
 
@@ -204,4 +204,4 @@
       }); // end field_suggest.bind
     }); // end this.each
   }; // end $.fn.sselect
-})( JQuery );
+})( jQuery );
