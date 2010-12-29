@@ -1,0 +1,33 @@
+.hidden {
+  border: medium none;
+  display: none;
+  line-height: 0;
+  padding: 0;
+}
+
+.sselect-suggest {
+  -moz-box-shadow: 10px 10px 5px #888888;
+  background-color: white;
+  border: 1px solid #888888;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 20px;
+  width: 350px;
+  z-index: 1000000;
+}
+
+.sselect-suggest ul {
+  margin: 0;
+  padding: 4px 8px 4px 4px;
+}
+
+.sselect-suggest ul li {
+  cursor: default;
+  list-style-type: none;
+}
+
+.sselect-suggest ul li:hover {
+  background-color: #888888;
+}

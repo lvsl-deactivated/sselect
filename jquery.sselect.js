@@ -22,12 +22,13 @@
 
       var ul_c = $('<ul><i></i></ul>');
       var close_btn = $('<span style="float: right; cursor: pointer;">✘</span>');
-      var choices_div = $('<div class="task-type-suggest hidden"></div>');
+      var choices_div = $('<div class="sselect-suggest hidden"></div>');
 
       var field = $(this);
       var field_id = field.attr('id');
 
        // construct required DOM
+      $("head").append('<link rel="stylesheet" href="../sselect.css" type="text/css" />');
       choices_div.append(close_btn);
       choices_div.append(ul_c);
       field.wrap(wrap_div);
@@ -46,8 +47,8 @@
         all_choices = $('#' + field_id + ' optgroup option').map(function() {return $(this).text();});
         all_values = $('#' + field_id + ' optgroup option').map(function() {return $(this).val();});
       } else {
-        all_choices = $('#' + field_id + ' option').not(':first').map(function() {return $(this).text();});
-        all_values = $('#' + field_id + ' option').not(':first').map(function() {return $(this).val();});
+        all_choices = $('#' + field_id + ' option').map(function() {return $(this).text();});
+        all_values = $('#' + field_id + ' option').map(function() {return $(this).val();});
       };
 
       var ul = ul_c;
