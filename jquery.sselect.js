@@ -9,7 +9,9 @@
 (function( $ ){
   $.fn.sselect = function( options ) {
 
-    var settings = {};
+    var settings = {
+      limit: 20
+    };
 
     return this.each(function() {  
       if ( options ) {
@@ -17,8 +19,8 @@
       };
  
       var wrap_div = $('<div style="position: relative; display: inline; padding:0; margin: 0"></div>');
-      var turn_on = $('<b>✍</b>');
-      var input_string = $('<input type="string" style="width:250px" name="task_type" class="hidden" autocomplete="off"/>');
+      var turn_on = $('<b style="cursor: pointer">✍</b>');
+      var input_string = $('<input type="string" style="width:250px" class="hidden" autocomplete="off"/>');
 
       var ul_c = $('<ul><i></i></ul>');
       var close_btn = $('<span style="float: right; cursor: pointer;">✘</span>');
@@ -40,17 +42,27 @@
       // initialization
       var field_suggest = input_string;
       var pressed = false;
-      var all_choices;
-      var all_values;
+      var all_choices = [];
+      var all_values = [];
 
       if ( field.find('optgroup').length ) {
-        all_choices = $('#' + field_id + ' optgroup option').map(function() {return $(this).text();});
-        all_values = $('#' + field_id + ' optgroup option').map(function() {return $(this).val();});
+        $('#' + field_id + ' optgroup option').each(function() {
+          var i = $(this);
+          if ( i.val() ) {
+            all_choices.push(i.text());
+            all_values.push(i.val());
+          };
+        });
       } else {
-        all_choices = $('#' + field_id + ' option').map(function() {return $(this).text();});
-        all_values = $('#' + field_id + ' option').map(function() {return $(this).val();});
+        $('#' + field_id + ' option').each(function() {
+          var i = $(this);
+          if ( i.val() ) {
+            all_choices.push(i.text());
+            all_values.push(i.val());
+          };
+        });
       };
-
+  
       var ul = ul_c;
       var suggest_toggle = turn_on;
       var current_li = null;
@@ -69,9 +81,9 @@
         ul.find('li').remove();
       };
 
-      close_btn.bind( 'click.sselect',  function(){hide_suggest();} );
+      close_btn.bind( 'click.sselect.' + field_id,  function(){hide_suggest();} );
 
-      suggest_toggle.bind('click.sselect', function(event) {
+      suggest_toggle.bind('click.sselect.' + field_id, function(event) {
         if ( pressed ) {
           hide_suggest();
           return;
@@ -96,7 +108,7 @@
             continue;
           };
           choices.push( [all_choices[i], i, v.length, all_values[i]] );
-          if ( choices.length <= 20 ) {
+          if ( choices.length <= settings['limit'] ) {
             ul.append( '<li title="' 
                        + all_values[i] + '">' + all_choices[i].substr( 0, index )
                        + '<b>' + all_choices[i].substr( index, v.length ) + '</b>'
@@ -115,14 +127,14 @@
         });
       }); // end suggest_toggle.bind
 
-      ul.bind('focusout.sselect', function( event ) {
+      ul.bind('focusout.sselect.' + field_id, function( event ) {
         if ( !pressed ) { return; }
         hide_suggest();
       });
 
       var ev = $.browser.opera ? 'keypress' : 'keydown';
 
-      field_suggest.bind(ev + '.sselect', function( event ) {
+      field_suggest.bind(ev + '.sselect.' + field_id, function( event ) {
         var code = (event.keyCode ? event.keyCode : event.which);
 
         if ( code == 13 ) {
@@ -158,7 +170,7 @@
         };
       }); // end field_suggest.bind
 
-      field_suggest.bind('keyup.sselect', function( event ) {
+      field_suggest.bind('keyup.sselect.' + field_id, function( event ) {
         var code = (event.keyCode ? event.keyCode : event.which);
 
         if ( code == 13 ) {
@@ -184,7 +196,7 @@
             var index = all_choices[i].search(re);
             if ( index == -1 ) { continue; }
             choices.push( [all_choices[i], i, v.length, all_values[i]] );
-            if ( choices.length <= 20 ) {
+            if ( choices.length <= settings['limit'] ) {
               ul.append( '<li title="' + all_values[i] + '">' 
                          + all_choices[i].substr(0,index)
                          + '<b>' + all_choices[i].substr(index, v.length) + '</b>'

@@ -22,8 +22,35 @@
       
 
     <h1>Select with empty option</h1>
+    <select id="empty_select">
+      <option value="">---</option>
+      <option value="1">option one</option>
+      <option value="2">option two</option>
+      <option value="3">option three</option>
+    </select>
+    <script type="text/javascript">$('#empty_select').sselect();</script>
+
 
     <h1>Select with optgroup</h1>
+    <select id="optgroup_select">
+      <option value="">---</option>
+      <optgroup label="a">
+        <option value="1_a">option one a</option>
+        <option value="2_a">option two a</option>
+        <option value="3_a">option three a</option>
+      </optgroup>
+      <optgroup label="b">
+        <option value="1_b">option one b</option>
+        <option value="2_b">option two b</option>
+        <option value="3_b">option three b</option>
+      </optgroup>
+      <optgroup label="c">
+        <option value="1_c">option one c</option>
+        <option value="2_c">option two c</option>
+        <option value="3_c">option three c</option>
+      </optgroup>
+    </select>
+    <script type="text/javascript">$('#optgroup_select').sselect( {limit: 5} );</script>
 
   </body>
 </html>
