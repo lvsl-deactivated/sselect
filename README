@@ -1,6 +1,6 @@
-Suggestable Select Field
+jQuery plugin for enabling suggest in select fields.
 
-Tested in FF3.6, Opera10.63, Chrome8.0.552.224
+Tested in FF3.6, Opera10.63, Chrome8.0.552.224 on Linux.
 
 REQUIREMENTS: JQuery.
 
@@ -9,5 +9,9 @@ USAGE:
    ...options..
  </select>
  <script>
-  select_suggest('id'); 
+  $('#id')select_suggest( {...options...} ); 
  </script>
+
+Where options are:
+ * limit - maximum number of items to display in suggest.
+ * css_class - class of suggest container.
