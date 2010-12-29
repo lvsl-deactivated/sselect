@@ -10,7 +10,8 @@
   $.fn.sselect = function( options ) {
 
     var settings = {
-      limit: 20
+      limit: 20,
+      css_class: "sselect-suggest"
     };
 
     return this.each(function() {  
@@ -24,7 +25,7 @@
 
       var ul_c = $('<ul><i></i></ul>');
       var close_btn = $('<span style="float: right; cursor: pointer;">✘</span>');
-      var choices_div = $('<div class="sselect-suggest hidden"></div>');
+      var choices_div = $('<div class="' + settings['css_class'] + ' hidden"></div>');
 
       var field = $(this);
       var field_id = field.attr('id');
@@ -155,7 +156,8 @@
             current_li = 0;
             $( 'li[title=' + choices[current_li][3] + ']' ).css('background-color', '#ccc');
           } else {
-            if (code == 40 && (current_li >= (choices.length-1) || current_li >= 19)) { return; }
+            if ( code == 40 && ( current_li >= (choices.length-1) 
+                                || current_li >= settings['limit'] - 1 ) ) { return; }
             if (code == 38 && current_li == 0) { return; }
 
             if (code == 38) {
