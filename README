@@ -1,0 +1,13 @@
+Suggestable Select Field
+
+Tested in FF3.6, Opera10.63, Chrome8.0.552.224
+
+REQUIREMENTS: JQuery.
+
+USAGE:
+ <select id="id" ... >
+   ...options..
+ </select>
+ <script>
+  select_suggest('id'); 
+ </script>
